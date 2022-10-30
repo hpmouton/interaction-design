@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//Model Imports
 use App\Models\User;
+
+//Job Imports
+use App\Jobs\UserCreated;
+use App\Jobs\UserUpdated;
+use App\Jobs\UserDeleted;
+
 class RegistrationController extends Controller
 {
     /**
@@ -40,6 +47,9 @@ class RegistrationController extends Controller
         //Creates the user model
         $user =  User::create($request->all());
 
+        //event to tell sdg station that user was registered
+        UserCreated::dispatch($user->toArray());
+
         return [
             "status" => 1,
             "data" => $user,
@@ -58,6 +68,8 @@ class RegistrationController extends Controller
     {
         //FInds specific user
         $user = User::find($id);
+
+
 
         return $user;
     }
@@ -89,6 +101,8 @@ class RegistrationController extends Controller
         //Updates the user model
         $user->update($request->all());
 
+        UserUpdated::dispatch($user->toArray());
+
         return [
             "status" => 1,
             "data" => $user,
@@ -108,6 +122,8 @@ class RegistrationController extends Controller
         //finds and removes user from database
         $user = User::find($id);
         $user->delete();
+
+        UserDeleted::dispatch($id);
 
         return [
             "status" => 1,

@@ -7,6 +7,12 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
+//Job Imports
+use App\Jobs\UserCreated;
+use App\Jobs\UserUpdated;
+use App\Jobs\UserDeleted;
+
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -28,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        \App::bindMethod(UserCreated::class . '@handle', fn($job) => $job->handle());
+        \App::bindMethod(UserUpdated::class . '@handle', fn($job) => $job->handle());
+        \App::bindMethod(UserDeleted::class . '@handle', fn($job) => $job->handle());
     }
 
     /**

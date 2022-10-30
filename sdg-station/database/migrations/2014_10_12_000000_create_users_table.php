@@ -20,7 +20,8 @@ return new class extends Migration
             $table->date('dob');
             $table->string('gender');
             $table->string('email')->unique();
-            $table->rememberToken();
+            $table->unsignedBigInteger('team_id');
+
             $table->timestamps();
         });
     }

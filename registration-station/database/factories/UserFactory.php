@@ -28,7 +28,9 @@ class UserFactory extends Factory
             'gender' => fake()->randomElement(['male', 'female']),
             'team_id' => Team::all()->random()->id,
             'remember_token' => Str::random(10),
+
         ];
+
     }
 
     /**
