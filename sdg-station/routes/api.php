@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 //Controller Imports
 use App\Http\Controllers\SDGController;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,3 +18,4 @@ use App\Http\Controllers\SDGController;
 */
 
 Route::resource('sdg', SDGController::class);
+Route::resource('users',UserController::class);
